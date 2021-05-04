@@ -1,0 +1,57 @@
+  .result {
+    width: 76%;
+    border: 0;
+    margin: 25px;
+    box-sizing: border-box;
+    font-size: 15px;
+    height: 35px;
+    text-align: center;
+    margin-left: 100px;
+  }
+
+
+  hr{
+    height: 2px;
+  }
+
+  #contact{
+    background-repeat: no-repeat;background-attachment: fixed; background-size: cover;
+    background-color:rgb(189, 188, 188);
+    height: 400px;
+  }
+  #status{
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+
+  #status.success{
+    background-color: rgb(211, 250, 153);
+    animation: status 4s ease forwards;
+  }
+
+  #status.error{
+    background-color: rgb(250, 129, 92);
+    color: white;
+    animation: status 4s ease forwards;
+
+  }
+
+  @keyframes status{
+    0%{
+      opacity: 1;
+      pointer-events: all;
+    }
+    90%{
+      opacity: 1;
+      pointer-events: all;
+    }
+    100%{
+      opacity: 1;
+      pointer-events: none;
+    }
+
+  }

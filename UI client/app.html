@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>House Price Prediction</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/Features-Clean.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/Team-Clean.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="app.js"></script>
+    <script src="contact.js"></script>
+    <script data-require="jquery@2.0.3" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <link data-require="jqueryui@1.10.0" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
+    <script data-require="jqueryui@1.10.0" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>  
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
+    <link rel="stylesheet" href="map.css" />
+    <script src="map.js" type="text/javascript"></script>
+</head>
+<body>
+    <header id="home"style=" background-repeat: no-repeat; height:652px;  background-attachment: fixed; background-size: cover; background-image:url('houseimg.jpg');">
+        <div>
+            <a href="#map" style="margin-left: 900px;color: rgb(127,132,137);">MAP</a>
+            <a href="#team" style="margin-left: 50PX;color: rgb(127,132,137);">TEAM</a>
+            <a href="#contact" style="margin-left: 50PX;color: rgb(127,132,137);">CONTACT</a>
+        </div>
+        <div style="font-size: 30px;color: rgb(255,255,255);">
+            <p style="margin-top: 200px;text-align:center; font-size: 40px;"><strong>HOUSE PRICE PREDICTOR</strong></p>
+            <p style="font-size:20px;text-align: center; font-family:Verdana, Geneva, Tahoma, sans-serif"><b>Homes that match</b></p>
+            <a href="#predict" class="btn btn-warning" style="font-size: 20px; margin-left: 580px;"><b>PREDICT PRICE</b></a>
+        </div> 
+    </header>
+    <section id="predict">
+            <div class="container">
+                    <div class="row" >
+                        <div class="card" style="width:100%; height:100%; margin-top:50px;">
+                            <div class="card-header" style="text-align:center;">
+                                <h1 ><B>FIND YOUR BEST PRICE</B></h1>
+                            </div>
+                            <div class="card-body" style="font-size: 15px;">
+                                <form class="form">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group" style="text-align:center">
+                                            <label><b>LOCATION</b></label>
+                                            <select class="select-picker form-control" id="uiLocations" name="uiLocations" required="1">
+                                                <option value="" disabled="disabled" selected="selected">Select Location</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 form-group" style="text-align:center">
+                                            <label><b>BHK</b></label>
+                                            <input type="text" class="form-control" placeholder="Enter number of BHK" id="bhk" name="uiBHK" required="required">
+                                        </div>
+                                        <div class="col-md-6 form-group" style="text-align:center">
+                                            <label><b>BATHROOMS</b></label>
+                                            <input type="text" class="form-control" placeholder="Enter number of Bathrooms" id="uiBath" name="uiBathrooms" required="required">
+                                        </div>
+                                        <div class="col-md-6 form-group" style="text-align:center">
+                                            <label><b>SQUARE FEET</b></label>
+                                            <input type="text" class="form-control" placeholder="Enter Square Feet" id="uiSqft" name="uiSqft" required="required">
+                                        </div>
+                                        <div class="col-md-12 form-group" >
+                                            <button class="btn btn-warning form-control" onclick="onClickedEstimatePrice()" type="button"><b>PROCEED</b></button>
+                                        </div>
+                                        <div id="uiEstimatedPrice" class="result"><h2></h2> </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+    </section>
+    <br>
+    <br>
+    <hr>
+    <section id="map">
+        <div class="features-clean">
+            <div class="container">  
+                <div class="intro">
+                    <h2 class="text-center" style="font-size:40px;color:inherit; margin-top: -10px;">MAP</h2>
+                </div>
+                <div class="row features">
+                    <div class="col-sm-6 col-lg-4 item"><i class="fa fa-map-marker icon" style="color:inherit"></i>
+                        <h3 class="name">LOCATION</h3>
+                        <p class="description">You can view the location and the nearby hospitals, temples, schools, colleges, supermarket, etc... </p>
+                    </div>
+                    <div style="margin-top: -150px;">
+                        <select class="select-picker form-control" id="uiLocations1" name="uiLocations1" required="1" style="width: auto; margin-left: 400px;">
+                            <option value="" disabled="disabled" selected="selected">Select Location</option>
+                        </select>
+                        <br>
+                        <div id="map-canvas"></div>
+                        <div id="dialog" title="Results">
+                        <ul id="places"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br> 
+    <hr>
+    <section id="team">
+        <div class="features-clean">
+            <div class="container">  
+                <div class="intro">
+                    <h2 class="text-center" style="font-size:40px;color:inherit; margin-top: -10px;">TEAM</h2>
+                </div>        
+            </div>
+        </div>
+        <div class="team-clean" style="margin-top: -100px;">
+            <div class="container">
+                <div class="row people">
+                    <div class="col-md-6 col-lg-4 item">
+                        <h3 class="name">SOWMIYA DEVI K</h3>
+                        <p class="title">TEAM LEADER</p>
+                        <p>Department of CSE</p>
+                        <p style="margin-top: -15px;">Sri Manakula Vinayagar Engineering College, Puducherry, India</p>
+                        <p style="margin-top: -15px;">sowmi5099@gmail.com</p>
+                        <div class="social"><a href="https://github.com/Sowmiyakannan05"><i class="fa fa-github"></i></a><a href="https://www.linkedin.com/in/sowmiya-devi-k-582987180"><i class="fa fa-linkedin-square"></i></a></div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 item">
+                        <h3 class="name">BHUVANESHWARI M</h3>
+                        <p class="title">TEAM MEMBER</p>
+                        <p>Department of CSE</p>
+                        <p style="margin-top: -15px;">Sri Manakula Vinayagar Engineering College, Puducherry, India</p>
+                        <p style="margin-top: -15px;">bhuvaneshwari119@gmail.com</p>
+                        <div class="social"><a href="https://github.com/Bhuvaneshwari-Anand"><i class="fa fa-github"></i></a><a href="https://www.linkedin.com/in/bhuvaneshwari-muruganandan-b30aba193"><i class="fa fa-linkedin-square"></i></a></div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 item">
+                        <h3 class="name">NANDHINY J</h3>
+                        <p class="title">TEAM MEMBER</p>
+                        <p>Department of CSE</p>
+                        <p style="margin-top: -15px;">Sri Manakula Vinayagar Engineering College, Puducherry, India</p>
+                        <p style="margin-top: -15px;">nandhinyjaya2000@gmail.com</p>
+                        <div class="social"><a href="https://github.com/Nandhu1303"><i class="fa fa-github"></i></a><a href="https://www.linkedin.com/in/nandhiny-j-5a488820a"><i class="fa fa-linkedin-square"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+    <br>
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br><br>
+                    <p style="text-align:center; font-size: 40px; color: inherit;"><strong>CONTACT US</strong></p>
+                    <form id="my-form" name="my-form" novalidate="novalidate" action="https://formspree.io/f/myylygvw" method="POST">
+                        <div class="form-row">
+                            <div class="col col-md-6">
+                                <div class="form-group"><input class="form-control" name="text" type="text" id="name" placeholder="Your Name *" required=""><small class="form-text text-danger flex-grow-1 help-block lead"></small></div>
+                                <div class="form-group"><input class="form-control" name="email" type="email" id="email" placeholder="Your Email *" required=""><small class="form-text text-danger help-block lead"></small></div>
+                                <div class="form-group"><input class="form-control"  name="tel"  type="tel" placeholder="Your Phone *" required=""><small class="form-text text-danger help-block lead"></small></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group"><textarea class="form-control" id="message" name="message" placeholder="Your Message *" required=""></textarea><small class="form-text text-danger help-block lead"></small></div>
+                            </div>
+                            <div class="col">
+                                <div class="clearfix"></div>
+                            </div>
+                            <br>
+                            <div class="col-lg-12 text-center">
+                                <button class="btn btn-warning btn-xl text-uppercase" id="sendMessageButton" name="submit" type="submit"><b>Send Message</b></button></div>
+                            </div>
+                    </form>
+                    <div id="my-form-status" name="my-form-status"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
